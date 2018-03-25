@@ -18,10 +18,14 @@
 <resources>
     <color name="photo_placeholder">#ccc</color>
 
-    <color name="primary">#04561A</color>
-    <color name="primaryDark">#04561A</color>
-    <color name="secondary">#04561A</color>
-    <color name="secondaryDark">#04561A</color>
-    <color name="accent">#04561A</color>
+    <color name="primary">#9c27b0</color>
+    <color name="primaryLight">#d05ce3</color>
+    <color name="primaryDark">#6a0080</color>
+    <color name="secondary">#18ffff</color>
+    <color name="secondaryLight">#76ffff</color>
+    <color name="secondaryDark">#00cbcc</color>
+    <color name="primaryText">#ffffff</color>
+    <color name="secondaryText">#000000</color>
     <color name="ltgray">#ffe0e0e0</color>
+
 </resources>
