@@ -26,6 +26,9 @@
     <color name="secondaryDark">#00cbcc</color>
     <color name="primaryText">#ffffff</color>
     <color name="secondaryText">#000000</color>
+
+    <color name="scrim">#4d000000</color>
+
     <color name="ltgray">#ffe0e0e0</color>
 
 </resources>

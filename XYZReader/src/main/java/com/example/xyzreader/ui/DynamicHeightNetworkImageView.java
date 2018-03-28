@@ -1,12 +1,12 @@
 package com.example.xyzreader.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import com.android.volley.toolbox.NetworkImageView;
 
 public class DynamicHeightNetworkImageView extends NetworkImageView {
-    private float mAspectRatio = 1.5f;
 
     public DynamicHeightNetworkImageView(Context context) {
         super(context);
@@ -20,15 +20,15 @@ public class DynamicHeightNetworkImageView extends NetworkImageView {
         super(context, attrs, defStyle);
     }
 
-    public void setAspectRatio(float aspectRatio) {
-        mAspectRatio = aspectRatio;
-        requestLayout();
-    }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int measuredWidth = getMeasuredWidth();
-        setMeasuredDimension(measuredWidth, (int) (measuredWidth / mAspectRatio));
+        final Drawable drawable = getDrawable();
+        if (drawable != null) {
+            final int measuredWidth = MeasureSpec.getSize(widthMeasureSpec);
+            final int height = measuredWidth * drawable.getIntrinsicHeight() / drawable.getIntrinsicWidth();
+            setMeasuredDimension(widthMeasureSpec, height);
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        }
     }
 }
