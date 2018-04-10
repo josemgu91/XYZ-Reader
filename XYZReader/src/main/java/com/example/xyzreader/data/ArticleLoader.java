@@ -9,18 +9,28 @@ import android.support.v4.content.CursorLoader;
  */
 public class ArticleLoader extends CursorLoader {
     public static ArticleLoader newAllArticlesInstance(Context context) {
-        return new ArticleLoader(context, ItemsContract.Items.buildDirUri());
+        return new ArticleLoader(context, ItemsContract.Items.buildDirUri(), Query.PROJECTION_WITHOUT_BODY);
     }
 
     public static ArticleLoader newInstanceForItemId(Context context, long itemId) {
-        return new ArticleLoader(context, ItemsContract.Items.buildItemUri(itemId));
+        return new ArticleLoader(context, ItemsContract.Items.buildItemUri(itemId), Query.PROJECTION);
     }
 
-    private ArticleLoader(Context context, Uri uri) {
-        super(context, uri, Query.PROJECTION, null, null, ItemsContract.Items.DEFAULT_SORT);
+    private ArticleLoader(Context context, Uri uri, String[] projection) {
+        super(context, uri, projection, null, null, ItemsContract.Items.DEFAULT_SORT);
     }
 
     public interface Query {
+        String[] PROJECTION_WITHOUT_BODY = {
+                ItemsContract.Items._ID,
+                ItemsContract.Items.TITLE,
+                ItemsContract.Items.PUBLISHED_DATE,
+                ItemsContract.Items.AUTHOR,
+                ItemsContract.Items.THUMB_URL,
+                ItemsContract.Items.PHOTO_URL,
+                ItemsContract.Items.ASPECT_RATIO,
+        };
+
         String[] PROJECTION = {
                 ItemsContract.Items._ID,
                 ItemsContract.Items.TITLE,
