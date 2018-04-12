@@ -4,11 +4,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -45,7 +48,6 @@ public class ArticleDetailFragment extends Fragment implements
     private Cursor mCursor;
     private long mItemId;
     private View mRootView;
-    private int mMutedColor = 0xFF333333;
 
     private ImageView mPhotoView;
 
@@ -56,6 +58,8 @@ public class ArticleDetailFragment extends Fragment implements
     private GregorianCalendar START_OF_EPOCH = new GregorianCalendar(2, 1, 1);
 
     private Toolbar toolbar;
+
+    private boolean isFloatingActionButtonHidden;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -104,13 +108,33 @@ public class ArticleDetailFragment extends Fragment implements
 
         mPhotoView = mRootView.findViewById(R.id.photo);
 
-        mRootView.findViewById(R.id.share_fab).setOnClickListener(new View.OnClickListener() {
+        final FloatingActionButton floatingActionButton = mRootView.findViewById(R.id.share_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(Intent.createChooser(ShareCompat.IntentBuilder.from(getActivity())
                         .setType("text/plain")
                         .setText("Some sample text")
                         .getIntent(), getString(R.string.action_share)));
+            }
+        });
+        isFloatingActionButtonHidden = false;
+        final AppBarLayout appBarLayout = mRootView.findViewById(R.id.appBarLayout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                /*The AppBarLayout caches its total scroll range, so it should be fast to get it.*/
+                final float totalScrollRange = appBarLayout.getTotalScrollRange();
+                if (totalScrollRange > 0) {
+                    final float scrollPercentage = (Math.abs(verticalOffset)) / totalScrollRange;
+                    if (scrollPercentage >= 0.2 && !isFloatingActionButtonHidden) {
+                        isFloatingActionButtonHidden = true;
+                        ViewCompat.animate(floatingActionButton).scaleY(0).scaleX(0).start();
+                    } else if (scrollPercentage < 0.2 && isFloatingActionButtonHidden) {
+                        isFloatingActionButtonHidden = false;
+                        ViewCompat.animate(floatingActionButton).scaleY(1).scaleX(1).start();
+                    }
+                }
             }
         });
 
