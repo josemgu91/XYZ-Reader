@@ -18,7 +18,7 @@
             app:expandedTitleMarginBottom="94dp"
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -85,15 +85,18 @@
                         android:id="@+id/article_byline"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_serif"
                         android:paddingBottom="@dimen/detail_byline_padding_bottom"
                         android:textColor="@color/secondaryDark"
                         android:textSize="@dimen/detail_byline_text_size"
+                        android:textStyle="bold"
                         tools:text="Article date" />
 
                     <TextView
                         android:id="@+id/article_body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/noto_serif"
                         android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
                         android:paddingBottom="@dimen/detail_body_bottom_margin"
                         android:textColorLink="@color/secondary"
