@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewCompat;
@@ -92,6 +93,12 @@ public class ArticleDetailFragment extends Fragment implements
         final AppCompatActivity activity = ((AppCompatActivity) getActivity());
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavUtils.navigateUpFromSameTask(getActivity());
+            }
+        });
 
         // In support library r8, calling initLoader for a fragment in a FragmentPagerAdapter in
         // the fragment's onCreate may cause the same LoaderManager to be dealt to multiple
