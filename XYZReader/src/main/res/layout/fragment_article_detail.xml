@@ -114,9 +114,7 @@
         android:layout_marginEnd="@dimen/fab_margin"
         android:contentDescription="@string/action_share"
         android:src="@drawable/ic_share"
-        app:elevation="@dimen/fab_elevation"
         app:layout_anchor="@id/cardview"
-        app:layout_anchorGravity="top|end"
-        app:pressedTranslationZ="@dimen/fab_press_translation_z" />
+        app:layout_anchorGravity="top|end" />
 
 </android.support.design.widget.CoordinatorLayout>

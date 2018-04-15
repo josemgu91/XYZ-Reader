@@ -4,4 +4,5 @@
 
     <!-- detail -->
     <dimen name="detail_card_horizontal_margin">16dp</dimen>
+    <dimen name="fab_margin">32dp</dimen>
 </resources>
